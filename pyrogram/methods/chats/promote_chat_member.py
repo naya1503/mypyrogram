@@ -29,6 +29,7 @@ class PromoteChatMember:
         chat_id: Union[int, str],
         user_id: Union[int, str],
         privileges: "types.ChatPrivileges" = None,
+        title: Optional[str] = "",
     ) -> bool:
         """Promote or demote a user in a supergroup or a channel.
 
@@ -74,9 +75,10 @@ class PromoteChatMember:
         except errors.RPCError:
             raw_chat_member = None
 
-        rank = None
-        if isinstance(raw_chat_member, raw.types.ChannelParticipantAdmin):
+        if not title and isinstance(raw_chat_member, raw.types.ChannelParticipantAdmin):
             rank = raw_chat_member.rank
+        else:
+            rank = title
 
         await self.invoke(
             raw.functions.channels.EditAdmin(
@@ -96,7 +98,7 @@ class PromoteChatMember:
                     manage_topics=privileges.can_manage_topics,
                     other=privileges.can_manage_chat
                 ),
-                rank=rank or ""
+                rank=rank
             )
         )
 
