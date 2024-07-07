@@ -1,20 +1,21 @@
-#  Pyrogram - Telegram MTProto API Client Library for Python
+#  Pyrofork - Telegram MTProto API Client Library for Python
 #  Copyright (C) 2017-present Dan <https://github.com/delivrance>
+#  Copyright (C) 2022-present Mayuri-Chan <https://github.com/Mayuri-Chan>
 #
-#  This file is part of Pyrogram.
+#  This file is part of Pyrofork.
 #
-#  Pyrogram is free software: you can redistribute it and/or modify
+#  Pyrofork is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU Lesser General Public License as published
 #  by the Free Software Foundation, either version 3 of the License, or
 #  (at your option) any later version.
 #
-#  Pyrogram is distributed in the hope that it will be useful,
+#  Pyrofork is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU Lesser General Public License for more details.
 #
 #  You should have received a copy of the GNU Lesser General Public License
-#  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
+#  along with Pyrofork.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
 import re
@@ -47,7 +48,7 @@ class ResolvePeer:
         Parameters:
             peer_id (``int`` | ``str``):
                 The peer id you want to extract the InputPeer from.
-                Can be a direct id (int), a username (str) or a phone number (str).
+                Can be a direct id (int), a username (str) or a phone number (str) or *t.me/<username>* link.
 
         Returns:
             ``InputPeer``: On success, the resolved peer id is returned in form of an InputPeer object.
@@ -66,6 +67,7 @@ class ResolvePeer:
                     return raw.types.InputPeerSelf()
 
                 peer_id = re.sub(r"[@+\s]", "", peer_id.lower())
+                peer_id = re.sub(r"https://t.me/", "", peer_id.lower())
 
                 try:
                     int(peer_id)
