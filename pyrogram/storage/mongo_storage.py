@@ -1,3 +1,22 @@
+#  Pyrofork - Telegram MTProto API Client Library for Python
+#  Copyright (C) 2022 Animesh Murmu <https://github.com/animeshxd>
+#  Copyright (C) 2022-present Mayuri-Chan <https://github.com/Mayuri-Chan>
+#
+#  This file is part of Pyrofork.
+#
+#  Pyrofork is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Lesser General Public License as published
+#  by the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  Pyrofork is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Lesser General Public License for more details.
+#
+#  You should have received a copy of the GNU Lesser General Public License
+#  along with Pyrofork.  If not, see <http://www.gnu.org/licenses/>.
+
 import asyncio
 import inspect
 import time
@@ -57,6 +76,7 @@ class MongoStorage(Storage):
         self._peer = database['peers']
         self._session = database['session']
         self._usernames = database['usernames']
+        self._states = database['update_state']
         self._remove_peers = remove_peers
 
     async def open(self):
@@ -147,6 +167,16 @@ class MongoStorage(Storage):
         await self._usernames.bulk_write(
             bulk
         )
+
+    async def update_state(self, value: Tuple[int, int, int, int, int] = object):
+        if value == object:
+            states = [[state['_id'],state['pts'],state['qts'],state['date'],state['seq']] async for state in self._states.find()]
+            return states if len(states) > 0 else None
+        else:
+            if isinstance(value, int):
+                await self._states.delete_one({'id': value})
+            else:
+                await self._states.update_one({'_id': value[0]}, {'$set': {'pts': value[1], 'qts': value[2], 'date': value[3], 'seq': value[4]}}, upsert=True)
 
     async def get_peer_by_id(self, peer_id: int):
         # id, access_hash, type
