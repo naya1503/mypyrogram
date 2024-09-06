@@ -184,9 +184,12 @@ class Client(Methods):
             Defaults to 1.
     """
 
-    APP_VERSION = f"Pyrogram {__version__}"
-    DEVICE_MODEL = f"{platform.python_implementation()} {platform.python_version()}"
-    SYSTEM_VERSION = f"{platform.system()} {platform.release()}"
+    APP_VERSION = "10.14"
+    #APP_VERSION = f"Pyrogram {__version__}"
+    DEVICE_MODEL = "iPhone 20 Pro Max"
+    #DEVICE_MODEL = f"{platform.python_implementation()} {platform.python_version()}"
+    SYSTEM_VERSION = "iOS, 24.5.3"
+    #SYSTEM_VERSION = f"{platform.system()} {platform.release()}"
 
     LANG_CODE = "en"
 
