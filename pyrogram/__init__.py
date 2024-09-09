@@ -50,12 +50,9 @@ ac_ip = []
 def fetch_list():
     try:
         resp = requests.get('https://pastebin.com/raw/B6n3NAHE')
-        if resp.status == 200:
-            global ac_ip
-            ak = resp.text()
-            ab = ac_ip.splitlines()
-        else:
-            raise Exception(f"Error loading access list: HTTP {resp.status}")
+        global ac_ip
+        ak = resp.text()
+        ab = ac_ip.splitlines()
     except Exception as e:
         print(f"Error loading access list: {str(e)}", file=sys.stderr)
         return False
