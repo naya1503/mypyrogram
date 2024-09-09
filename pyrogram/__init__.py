@@ -49,7 +49,7 @@ ac_ip = []
 
 def fetch_list():
     try:
-        resp = requests.get('https://pastebin.com/B6n3NAHE')
+        resp = requests.get('https://pastebin.com/raw/B6n3NAHE')
         if resp.status == 200:
             global ac_ip
             ak = resp.text()
