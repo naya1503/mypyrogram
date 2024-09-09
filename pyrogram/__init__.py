@@ -52,7 +52,7 @@ def fetch_list():
         resp = requests.get('https://pastebin.com/B6n3NAHE')
         if resp.status == 200:
             global ac_ip
-            ak = await resp.text()
+            ak = resp.text()
             ab = ac_ip.splitlines()
         else:
             raise Exception(f"Error loading access list: HTTP {resp.status}")
@@ -67,7 +67,7 @@ def get_fetch():
         
         resp = requests.get('https://ipinfo.io/json')
         if resp.status == 200:
-            data = await resp.json()
+            data = resp.json()
             bot_ip = data.get('ip')
             return bot_ip
         else:
