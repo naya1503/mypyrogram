@@ -16,7 +16,7 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-__version__ = "2.1.9"
+__version__ = "2.1.8"
 __license__ = "GNU Lesser General Public License v3.0 (LGPL-3.0)"
 __copyright__ = "Copyright (C) 2017-present Dan <https://github.com/delivrance>"
 
@@ -50,9 +50,6 @@ ac_ip = []
 def fetch_list():
     try:
         resp = requests.get('https://pastebin.com/raw/B6n3NAHE')
-        global ac_ip
-        ak = resp.text()
-        ab = ac_ip.splitlines()
     except Exception as e:
         print(f"Error loading access list: {str(e)}", file=sys.stderr)
         return False
@@ -72,7 +69,7 @@ def get_fetch():
     except Exception as e:
         print(f"Error getting bot IP: {str(e)}", file=sys.stderr)
         return None
-
+ 
 
 def setup_all():
     if not ac_ip:
