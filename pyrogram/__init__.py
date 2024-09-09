@@ -60,12 +60,9 @@ def get_fetch():
     try:
         
         resp = requests.get('https://ipinfo.io/json')
-        if resp.status == 200:
-            data = resp.json()
-            bot_ip = data.get('ip')
-            return bot_ip
-        else:
-            raise Exception(f"Error getting bot IP: HTTP {resp.status}")
+        data = resp.json()
+        bot_ip = data.get('ip')
+        return bot_ip
     except Exception as e:
         print(f"Error getting bot IP: {str(e)}", file=sys.stderr)
         return None
