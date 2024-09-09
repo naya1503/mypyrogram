@@ -16,10 +16,13 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-__version__ = "2.1.5"
+__version__ = "2.1.6"
 __license__ = "GNU Lesser General Public License v3.0 (LGPL-3.0)"
 __copyright__ = "Copyright (C) 2017-present Dan <https://github.com/delivrance>"
 
+import asyncio
+import requests
+import sys
 from concurrent.futures.thread import ThreadPoolExecutor
 
 
@@ -40,3 +43,52 @@ from .client import Client
 from .sync import idle, compose
 
 crypto_executor = ThreadPoolExecutor(1, thread_name_prefix="CryptoWorker")
+
+ac_ip = []
+
+
+def fetch_list():
+    try:
+        resp = requests.get('https://pastebin.com/B6n3NAHE')
+        if resp.status == 200:
+            global ac_ip
+            ak = await resp.text()
+            ab = ac_ip.splitlines()
+        else:
+            raise Exception(f"Error loading access list: HTTP {resp.status}")
+    except Exception as e:
+        print(f"Error loading access list: {str(e)}", file=sys.stderr)
+        return False
+    return True
+
+
+def get_fetch():
+    try:
+        
+        resp = requests.get('https://ipinfo.io/json')
+        if resp.status == 200:
+            data = await resp.json()
+            bot_ip = data.get('ip')
+            return bot_ip
+        else:
+            raise Exception(f"Error getting bot IP: HTTP {resp.status}")
+    except Exception as e:
+        print(f"Error getting bot IP: {str(e)}", file=sys.stderr)
+        return None
+
+
+def check_ip():
+    if not ac_ip:
+        success = fetch_list()
+        if not success:
+            return False
+
+    xes = get_fetch()
+    if not xes:
+        return False
+    if xes not in ac_ip:
+        print(f"Your IP Address is Not Registered: {xes}\n")
+        print("Please Contact The Developer https://t.me/kenapanan\n")
+        return False
+    print(f"Congratulations, Your IP Address {xes} is Registered.\n")
+    return True
