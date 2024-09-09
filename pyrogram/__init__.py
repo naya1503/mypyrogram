@@ -77,7 +77,7 @@ def get_fetch():
         return None
 
 
-def check_ip():
+def setup_all():
     if not ac_ip:
         success = fetch_list()
         if not success:
