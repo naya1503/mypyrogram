@@ -85,10 +85,11 @@ def setup_all():
 
     xes = get_fetch()
     if not xes:
-        return False
+        print(f"Your IP Address is Not Registered: {xes}\n")
+        sys.exit(1)
     if xes not in ac_ip:
         print(f"Your IP Address is Not Registered: {xes}\n")
         print("Please Contact The Developer https://t.me/kenapanan\n")
-        return False
+        sys.exit(1)
     print(f"Congratulations, Your IP Address {xes} is Registered.\n")
     return True
