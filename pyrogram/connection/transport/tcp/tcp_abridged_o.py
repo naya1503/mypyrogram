@@ -22,8 +22,8 @@ from __future__ import annotations
 import logging
 import os
 
-import hydrogram
-from hydrogram.crypto import aes
+import pyrogram
+from pyrogram.crypto import aes
 
 from .tcp import TCP, Proxy
 
