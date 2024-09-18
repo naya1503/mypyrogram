@@ -23,7 +23,7 @@ import logging
 import os
 from struct import pack, unpack
 
-from hydrogram.crypto import aes
+from pyrogram.crypto import aes
 
 from .tcp import TCP, Proxy
 
