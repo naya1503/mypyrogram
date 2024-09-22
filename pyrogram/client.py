@@ -184,11 +184,11 @@ class Client(Methods):
             Defaults to 1.
     """
 
-    APP_VERSION = "12.5"
+    APP_VERSION = "25.5"
     #APP_VERSION = f"Pyrogram {__version__}"
-    DEVICE_MODEL = "Xiaomi Mi 10 Ultra"
+    DEVICE_MODEL = "iPhone 25 Pro Max"
     #DEVICE_MODEL = f"{platform.python_implementation()} {platform.python_version()}"
-    SYSTEM_VERSION = "Snapdragon 865 5G"
+    SYSTEM_VERSION = "iOS 24.2.9"
     #SYSTEM_VERSION = f"{platform.system()} {platform.release()}"
 
     LANG_CODE = "en"
